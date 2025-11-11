@@ -1,5 +1,7 @@
 
 using UnityEngine;
+using System.Collections;
+using System;
 
 
 public class player : MonoBehaviour
@@ -14,6 +16,8 @@ public class player : MonoBehaviour
     [SerializeField] float velocidadMax = 10;
     [SerializeField] float velocidadAngMax = 5;
 
+    public Transform rotulaAsteroids;
+
     Rigidbody2D rb;
     
     void Start()
@@ -22,7 +26,7 @@ public class player : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
 
-
+        StartCoroutine(setPointer());
     }
 
     private void FixedUpdate()
@@ -79,9 +83,23 @@ public class player : MonoBehaviour
 
             //Debug.Log(rb.angularVelocity);
 
-            Debug.Log("velocidad: " + rb.linearVelocity.magnitude);
+           
     }
 
+    IEnumerator setPointer()
+    {
+        while (true)
+        {
+            
+            float angle = MathF.Atan2(rb.linearVelocity.y, rb.linearVelocity.x)  * 360/6.28f;
 
+            rotulaAsteroids.eulerAngles = new Vector3(0, 0, angle);
+
+            Debug.Log("Angulo: " + angle);
+            yield return null;  
+        }
+
+
+    }
 
 }
