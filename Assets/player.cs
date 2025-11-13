@@ -19,7 +19,8 @@ public class player : MonoBehaviour
     public Transform rotulaAsteroids;
 
     Rigidbody2D rb;
-    
+
+    public Vector3 inicialPosRotula;
     void Start()
     {
 
@@ -93,7 +94,7 @@ public class player : MonoBehaviour
             
             float angle = MathF.Atan2(rb.linearVelocity.y, rb.linearVelocity.x)  * 360/6.28f;
 
-            rotulaAsteroids.eulerAngles = new Vector3(0, 0, angle);
+            rotulaAsteroids.eulerAngles = new Vector3(0, 0, angle-90);
 
             Debug.Log("Angulo: " + angle);
             yield return null;  
