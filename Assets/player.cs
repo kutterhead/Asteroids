@@ -21,6 +21,11 @@ public class player : MonoBehaviour
     Rigidbody2D rb;
 
     public Vector3 inicialPosRotula;
+
+    public GameObject prefabBullet;
+    public Transform posBullet;
+
+    public float potencia = 100;
     void Start()
     {
 
@@ -37,6 +42,13 @@ public class player : MonoBehaviour
         horizontalX = Input.GetAxis("Horizontal");
         verticalY = Input.GetAxis("Vertical");
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+           GameObject balaActual = Instantiate(prefabBullet, posBullet.position, posBullet.rotation);
+            balaActual.GetComponent<Rigidbody2D>().linearVelocity = posBullet.up * potencia;
+        
+        
+        }
 
         //transform.Translate(transform.right*horizontalX*Time.deltaTime * 100);
 
