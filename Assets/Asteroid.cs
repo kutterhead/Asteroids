@@ -29,6 +29,11 @@ public class Asteroid : MonoBehaviour
     {
         while (true)
         {
+            if (!transform)
+            {
+                break;
+            }
+
             if (Vector3.Distance(transform.position, player.position)>50)
             {
 
@@ -37,4 +42,12 @@ public class Asteroid : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
     }
+
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+    }
+
+
 }

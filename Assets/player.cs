@@ -7,6 +7,8 @@ using System;
 public class player : MonoBehaviour
 {
 
+    public GameObject prefabExplosion;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     [SerializeField]float horizontalX;
@@ -35,6 +37,22 @@ public class player : MonoBehaviour
         StartCoroutine(setPointer());
     }
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameObject balaActual = Instantiate(prefabBullet, posBullet.position, posBullet.rotation);
+            balaActual.GetComponent<Rigidbody2D>().linearVelocity = posBullet.up * potencia;
+
+            //Debug.Log("tecla espacio pulsada");
+        }
+    }
+
+
+
+
+
     private void FixedUpdate()
     {
         
@@ -42,13 +60,7 @@ public class player : MonoBehaviour
         horizontalX = Input.GetAxis("Horizontal");
         verticalY = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-           GameObject balaActual = Instantiate(prefabBullet, posBullet.position, posBullet.rotation);
-            balaActual.GetComponent<Rigidbody2D>().linearVelocity = posBullet.up * potencia;
-        
-        
-        }
+       
 
         //transform.Translate(transform.right*horizontalX*Time.deltaTime * 100);
 
@@ -108,11 +120,17 @@ public class player : MonoBehaviour
 
             rotulaAsteroids.eulerAngles = new Vector3(0, 0, angle-90);
 
-            Debug.Log("Angulo: " + angle);
+           // Debug.Log("Angulo: " + angle);
             yield return null;  
         }
 
 
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.tag);
+        Destroy(collision.gameObject);
+        Instantiate(prefabExplosion, collision.transform.position, collision.transform.rotation);
+        //Destroy(gameObject);
+    }
 }
