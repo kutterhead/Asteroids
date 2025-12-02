@@ -13,7 +13,7 @@ public class Asteroid : MonoBehaviour
 
     void Start()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         int indiceRandom = Random.Range(0, asteroides.Length);
         for (int i = 0; i < asteroides.Length; i++)
         {

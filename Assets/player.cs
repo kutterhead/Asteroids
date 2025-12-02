@@ -6,7 +6,7 @@ using System;
 
 public class player : MonoBehaviour
 {
-
+    public gameManager manager;
     public GameObject prefabExplosion;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -131,6 +131,16 @@ public class player : MonoBehaviour
         Debug.Log(collision.gameObject.tag);
         Destroy(collision.gameObject);
         Instantiate(prefabExplosion, collision.transform.position, collision.transform.rotation);
+        manager.restarVida();
         //Destroy(gameObject);
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision.gameObject.tag);
+        Destroy(collision.gameObject);
+        Instantiate(prefabExplosion, collision.transform.position, collision.transform.rotation);
+        manager.restarVida();
+    }
+
+
 }

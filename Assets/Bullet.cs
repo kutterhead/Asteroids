@@ -14,9 +14,17 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.gameObject.tag);
-        Destroy(collision.gameObject);
         Instantiate(prefabExplosion,transform.position, transform.rotation);
-        Destroy(gameObject);
+
+
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+
+            Destroy(collision.gameObject);
+
+        }
+        
+            Destroy(gameObject);//esta es la bala
     }
     /*public void OnCollisionEnter2D(Collision2D collision)
     {
